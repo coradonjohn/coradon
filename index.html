@@ -2,284 +2,488 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Coradon</title>
 
   <style>
-    * {
-      box-sizing: border-box;
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
     }
 
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: radial-gradient(circle at top, #16213e, #05070d 60%);
-      color: white;
-      overflow-x: hidden;
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      background:#050816;
+      color:white;
+      overflow-x:hidden;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
+    /* BACKGROUND */
+
+    .background{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      background:
+      radial-gradient(circle at top left,#13203d 0%,transparent 35%),
+      radial-gradient(circle at bottom right,#1d1040 0%,transparent 35%),
+      #050816;
+    }
+
+    .grid{
+      position:fixed;
+      inset:0;
+      z-index:-1;
       background-image:
-        linear-gradient(rgba(0, 255, 255, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 255, 0.06) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
+      linear-gradient(rgba(0,255,255,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,255,0.06) 1px, transparent 1px);
+      background-size:50px 50px;
     }
 
-    header {
-      padding: 24px 8%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(5, 8, 16, 0.75);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(0, 255, 255, 0.2);
-      position: sticky;
-      top: 0;
-      z-index: 10;
+    /* NAVBAR */
+
+    header{
+      position:fixed;
+      width:100%;
+      top:0;
+      padding:24px 8%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:rgba(5,8,22,0.75);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(0,255,255,0.15);
+      z-index:1000;
     }
 
-    .logo {
-      font-size: 30px;
-      font-weight: 800;
-      letter-spacing: 4px;
-      color: #00f5ff;
-      text-shadow: 0 0 18px #00f5ff;
+    .logo{
+      font-size:32px;
+      font-weight:900;
+      letter-spacing:5px;
+      color:#00e5ff;
+      text-shadow:0 0 20px #00e5ff;
     }
 
-    nav a {
-      color: #d9fbff;
-      text-decoration: none;
-      margin-left: 28px;
-      font-size: 14px;
-      letter-spacing: 1px;
+    nav a{
+      color:#cfefff;
+      text-decoration:none;
+      margin-left:30px;
+      font-size:14px;
+      letter-spacing:1px;
+      transition:0.3s;
     }
 
-    nav a:hover {
-      color: #00f5ff;
-      text-shadow: 0 0 12px #00f5ff;
+    nav a:hover{
+      color:#00e5ff;
+      text-shadow:0 0 10px #00e5ff;
     }
 
-    .hero {
-      min-height: 85vh;
-      padding: 120px 8%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
+    /* HERO */
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:140px 8%;
     }
 
-    .hero-content {
-      max-width: 850px;
-      z-index: 2;
+    .hero-content{
+      max-width:900px;
     }
 
-    .badge {
-      display: inline-block;
-      padding: 8px 16px;
-      margin-bottom: 25px;
-      border: 1px solid rgba(0, 245, 255, 0.5);
-      border-radius: 999px;
-      color: #00f5ff;
-      background: rgba(0, 245, 255, 0.08);
-      font-size: 13px;
-      letter-spacing: 2px;
+    .tag{
+      display:inline-block;
+      padding:10px 18px;
+      border:1px solid rgba(0,229,255,0.4);
+      border-radius:999px;
+      color:#00e5ff;
+      background:rgba(0,229,255,0.08);
+      margin-bottom:30px;
+      letter-spacing:2px;
+      font-size:13px;
     }
 
-    h1 {
-      font-size: clamp(48px, 8vw, 92px);
-      margin: 0;
-      line-height: 1;
-      background: linear-gradient(90deg, #ffffff, #00f5ff, #8b5cf6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    h1{
+      font-size:clamp(60px,9vw,120px);
+      line-height:0.95;
+      margin-bottom:30px;
+      background:linear-gradient(90deg,#ffffff,#00e5ff,#8b5cf6);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
     }
 
-    .hero p {
-      font-size: 20px;
-      color: #b7c9d9;
-      max-width: 680px;
-      margin: 28px auto;
-      line-height: 1.6;
+    .hero p{
+      font-size:22px;
+      color:#9eb3c7;
+      line-height:1.7;
+      max-width:700px;
+      margin:auto;
     }
 
-    .button {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 15px 34px;
-      border-radius: 8px;
-      color: #05070d;
-      background: #00f5ff;
-      text-decoration: none;
-      font-weight: 800;
-      box-shadow: 0 0 25px rgba(0, 245, 255, 0.6);
-      transition: 0.25s;
+    .hero-buttons{
+      margin-top:40px;
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      flex-wrap:wrap;
     }
 
-    .button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 40px rgba(0, 245, 255, 0.9);
+    .button{
+      padding:16px 34px;
+      border-radius:12px;
+      text-decoration:none;
+      font-weight:800;
+      transition:0.3s;
     }
 
-    section {
-      padding: 80px 8%;
-      position: relative;
-      z-index: 2;
+    .primary{
+      background:#00e5ff;
+      color:#050816;
+      box-shadow:0 0 30px rgba(0,229,255,0.6);
     }
 
-    .product-card {
-      max-width: 850px;
-      margin: auto;
-      padding: 40px;
-      border-radius: 24px;
-      background: rgba(12, 18, 32, 0.8);
-      border: 1px solid rgba(0, 245, 255, 0.25);
+    .primary:hover{
+      transform:translateY(-4px);
+      box-shadow:0 0 45px rgba(0,229,255,0.9);
+    }
+
+    .secondary{
+      border:1px solid rgba(255,255,255,0.15);
+      color:white;
+      background:rgba(255,255,255,0.04);
+    }
+
+    .secondary:hover{
+      border-color:#00e5ff;
+      color:#00e5ff;
+    }
+
+    /* SECTIONS */
+
+    section{
+      padding:100px 8%;
+    }
+
+    .section-title{
+      text-align:center;
+      font-size:48px;
+      margin-bottom:50px;
+    }
+
+    /* DROP CARD */
+
+    .drop-card{
+      max-width:950px;
+      margin:auto;
+      padding:50px;
+      border-radius:30px;
+      background:rgba(13,19,36,0.8);
+      border:1px solid rgba(0,229,255,0.18);
+      backdrop-filter:blur(20px);
       box-shadow:
-        0 0 40px rgba(0, 245, 255, 0.08),
-        inset 0 0 30px rgba(0, 245, 255, 0.04);
-      backdrop-filter: blur(16px);
-      text-align: center;
+      0 0 40px rgba(0,229,255,0.08),
+      inset 0 0 20px rgba(0,229,255,0.04);
+      text-align:center;
     }
 
-    .product-card h2 {
-      font-size: 38px;
-      color: #ffffff;
+    .drop-card h2{
+      font-size:48px;
+      margin-bottom:10px;
     }
 
-    .date {
-      color: #00f5ff;
-      letter-spacing: 1px;
+    .drop-sub{
+      color:#00e5ff;
+      margin-bottom:25px;
+      letter-spacing:1px;
     }
 
-    .countdown {
-      margin-top: 30px;
-      font-size: clamp(30px, 5vw, 56px);
-      font-weight: 900;
-      color: #00f5ff;
-      text-shadow: 0 0 20px rgba(0, 245, 255, 0.8);
-      font-family: "Courier New", monospace;
+    .drop-card p{
+      color:#a8bdd0;
+      line-height:1.7;
+      max-width:650px;
+      margin:auto;
     }
 
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 22px;
-      margin-top: 35px;
+    /* COUNTDOWN */
+
+    .countdown{
+      margin-top:40px;
+      font-size:clamp(34px,6vw,70px);
+      font-weight:900;
+      color:#00e5ff;
+      text-shadow:0 0 25px rgba(0,229,255,0.9);
+      font-family:monospace;
     }
 
-    .info-box {
-      padding: 24px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(0, 245, 255, 0.18);
-      border-radius: 18px;
+    /* INFO GRID */
+
+    .grid-layout{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+      margin-top:50px;
     }
 
-    .info-box h3 {
-      color: #00f5ff;
-      margin-top: 0;
+    .info-box{
+      padding:30px;
+      border-radius:20px;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(0,229,255,0.12);
+      transition:0.3s;
     }
 
-    footer {
-      text-align: center;
-      padding: 34px;
-      color: #8fa6b8;
-      background: rgba(5, 8, 16, 0.85);
-      border-top: 1px solid rgba(0, 245, 255, 0.18);
+    .info-box:hover{
+      transform:translateY(-5px);
+      border-color:#00e5ff;
     }
+
+    .info-box h3{
+      color:#00e5ff;
+      margin-bottom:15px;
+      font-size:24px;
+    }
+
+    .info-box p{
+      color:#9eb3c7;
+      line-height:1.6;
+    }
+
+    /* ARCHIVE */
+
+    .archive-button{
+      margin-top:35px;
+    }
+
+    /* FOOTER */
+
+    footer{
+      margin-top:80px;
+      text-align:center;
+      padding:40px 20px;
+      border-top:1px solid rgba(0,229,255,0.15);
+      background:rgba(5,8,22,0.9);
+      color:#7e93a7;
+      line-height:1.8;
+    }
+
   </style>
 </head>
 
 <body>
 
+  <div class="background"></div>
+  <div class="grid"></div>
+
   <header>
     <div class="logo">CORADON</div>
+
     <nav>
-      <a href="#product">DROP</a>
-      <a href="#about">SYSTEM</a>
+      <a href="#drop">DROP</a>
+      <a href="#about">ABOUT</a>
+      <a href="#archive">ARCHIVE</a>
       <a href="#contact">CONTACT</a>
     </nav>
   </header>
 
+  <!-- HERO -->
+
   <section class="hero">
+
     <div class="hero-content">
-      <div class="badge">MONTHLY PRODUCT DESIGN LAB</div>
-      <h1>Future Drops. Built Monthly.</h1>
-      <p>
-        Coradon releases a new product or design at the end of every month —
-        experimental, functional, and made for the next wave of ideas.
-      </p>
-      <a href="#product" class="button">VIEW NEXT DROP</a>
-    </div>
-  </section>
 
-  <section id="product">
-    <div class="product-card">
-      <h2>Next Coradon Drop</h2>
-      <p class="date">Deploying at month-end</p>
+      <div class="tag">
+        MONTHLY PRODUCT DESIGN SYSTEM
+      </div>
+
+      <h1>
+        Future Products.<br>
+        Every Month.
+      </h1>
+
       <p>
-        A new concept is currently in development. Countdown active until reveal.
+        Coradon creates and releases one new product or design at the end of every month —
+        combining technology, creativity, and modern aesthetics into every drop.
       </p>
 
-      <div class="countdown" id="countdown"></div>
+      <div class="hero-buttons">
+        <a href="#drop" class="button primary">
+          VIEW NEXT DROP
+        </a>
+
+        <a href="#archive" class="button secondary">
+          PREVIOUS DROPS
+        </a>
+      </div>
+
     </div>
+
   </section>
+
+  <!-- DROP -->
+
+  <section id="drop">
+
+    <div class="drop-card">
+
+      <h2>NEXT DROP</h2>
+
+      <div class="drop-sub">
+        DEPLOYING AT MONTH-END
+      </div>
+
+      <p>
+        The next Coradon concept is currently in development.
+        Countdown active until release protocol begins.
+      </p>
+
+      <div class="countdown" id="countdown">
+        00d : 00h : 00m : 00s
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ABOUT -->
 
   <section id="about">
-    <div class="info-grid">
+
+    <h2 class="section-title">
+      CORADON SYSTEM
+    </h2>
+
+    <div class="grid-layout">
+
       <div class="info-box">
-        <h3>01 / Design</h3>
-        <p>Original concepts created around function, simplicity, and style.</p>
+        <h3>01 / DESIGN</h3>
+        <p>
+          Every concept is built with futuristic design language and clean functionality.
+        </p>
       </div>
 
       <div class="info-box">
-        <h3>02 / Release</h3>
-        <p>One new product or design released at the end of every month.</p>
+        <h3>02 / RELEASE</h3>
+        <p>
+          One new product, idea, or design is released at the end of every month.
+        </p>
       </div>
 
       <div class="info-box">
-        <h3>03 / Build</h3>
-        <p>Each drop is designed to feel fresh, useful, and future-focused.</p>
+        <h3>03 / EVOLVE</h3>
+        <p>
+          Coradon continuously experiments with new concepts and modern aesthetics.
+        </p>
       </div>
+
     </div>
+
   </section>
+
+  <!-- ARCHIVE -->
+
+  <section id="archive">
+
+    <div class="drop-card">
+
+      <h2>PREVIOUS DROPS</h2>
+
+      <p>
+        Explore previous Coradon releases, archived concepts,
+        and past monthly product designs.
+      </p>
+
+      <div class="archive-button">
+        <a href="#" class="button primary">
+          VIEW ARCHIVE
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CONTACT -->
 
   <section id="contact">
-    <div class="product-card">
-      <h2>Contact Coradon</h2>
-      <p>Email: hello@coradon.com</p>
+
+    <div class="drop-card">
+
+      <h2>CONTACT</h2>
+
+      <p>
+        hello@coradon.com
+      </p>
+
     </div>
+
   </section>
 
+  <!-- FOOTER -->
+
   <footer>
-    © 2026 Coradon // Monthly Design Protocol
+
+    © 2026 CORADON // MONTHLY DESIGN PROTOCOL
+
+    <br><br>
+
+    Created by Andrew Radin and Ben Cooper
+
   </footer>
 
+  <!-- COUNTDOWN SCRIPT -->
+
   <script>
+
     function getEndOfMonth() {
       const now = new Date();
-      return new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59);
+
+      return new Date(
+        now.getFullYear(),
+        now.getMonth() + 1,
+        0,
+        23,
+        59,
+        59
+      );
     }
 
     function updateCountdown() {
-      const now = new Date();
-      const endOfMonth = getEndOfMonth();
-      const difference = endOfMonth - now;
 
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((difference / (1000 * 60)) % 60);
-      const seconds = Math.floor((difference / 1000) % 60);
+      const now = new Date();
+      const end = getEndOfMonth();
+
+      const diff = end - now;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+      const hours = Math.floor(
+        (diff / (1000 * 60 * 60)) % 24
+      );
+
+      const minutes = Math.floor(
+        (diff / (1000 * 60)) % 60
+      );
+
+      const seconds = Math.floor(
+        (diff / 1000) % 60
+      );
 
       document.getElementById("countdown").innerHTML =
-        days + "d : " + hours + "h : " + minutes + "m : " + seconds + "s";
+        days + "d : " +
+        hours + "h : " +
+        minutes + "m : " +
+        seconds + "s";
     }
 
     updateCountdown();
+
     setInterval(updateCountdown, 1000);
+
   </script>
 
 </body>
